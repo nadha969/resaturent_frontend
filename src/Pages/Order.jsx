@@ -5,6 +5,8 @@ import { clearCart } from '../redux/CartSlice';
 import { toast } from 'react-toastify';
 import './order.css';
 import { placeOrderAPI } from '../Services/allAPI';
+import { useNavigate } from 'react-router-dom';
+
 
 function Order() {
   // Redux states
@@ -14,6 +16,7 @@ function Order() {
   const user = userState.user || null;
 
   const dispatch = useDispatch();
+  const navigate=useNavigate();
 
   // Order details state (DATE REMOVED)
   const [orderDetails, setOrderDetails] = useState({
@@ -63,6 +66,8 @@ function Order() {
       if (response.status === 200) {
         toast.success("Order placed successfully!");
         dispatch(clearCart());
+        navigate("/")
+
 
         setOrderDetails({
           name: user?.name || "",
