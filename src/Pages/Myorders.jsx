@@ -4,15 +4,12 @@ import Header from '../Components/Header';
 
 function Myorders() {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchOrders = async () => {
-    setLoading(true);
     const token = sessionStorage.getItem("token");
 
     if (!token) {
       console.log("Token not found");
-      setLoading(false);
       return;
     }
 
@@ -31,12 +28,11 @@ function Myorders() {
     } catch (err) {
       console.log("Error fetching orders:", err);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
     fetchOrders();
-    const interval = setInterval(fetchOrders, 3000); 
+    const interval = setInterval(fetchOrders, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -46,9 +42,7 @@ function Myorders() {
       <div className='container mt-4'>
         <h3>Order Summary</h3>
 
-        {loading ? (
-          <p>Loading orders...</p>
-        ) : orders.length > 0 ? (
+        {orders.length > 0 ? (
           orders.map(order => {
             const totalPrice = order.items
               ? order.items.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0)
@@ -58,8 +52,6 @@ function Myorders() {
               <div className='card p-3 mb-3' key={order._id}>
                 <h5>Order ID: {order._id}</h5>
 
-                {/* Order Status */}
-               
                 <p>
                   <b>Ordered On:</b>{" "}
                   {new Date(order.createdAt).toLocaleString("en-IN", {
@@ -71,6 +63,8 @@ function Myorders() {
                   })}
                 </p>
 
+               
+                {/* Items */}
                 {order.items && order.items.length > 0 ? (
                   <>
                     <h6>Items:</h6>
@@ -82,6 +76,7 @@ function Myorders() {
                         </p>
                       </div>
                     ))}
+
                     <p><b>Total Price:</b> ₹{totalPrice}</p>
                   </>
                 ) : (

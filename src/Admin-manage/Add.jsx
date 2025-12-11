@@ -1,4 +1,3 @@
-// src/Pages/Add.jsx
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../Components/Sidebar'
 import { Button } from 'react-bootstrap'
@@ -130,18 +129,7 @@ function Add() {
           onChange={(e) =>
             setfoodDetails({ ...foodDetails, category: e.target.value })
           }
-          style={{
-            width: "50%",
-            padding: "12px 15px",
-            border: "2px solid #d8e6d8",
-            borderRadius: "12px",
-            outline: "none",
-            backgroundColor: "#fff",
-            fontSize: "15px",
-            color: "#555",
-            cursor: "pointer"
-          }}
-        >
+          style={{  width: "50%",    padding: "12px 15px",    border: "2px solid #d8e6d8", borderRadius: "12px",outline: "none",    backgroundColor: "#fff",     fontSize: "15px",color: "#555",  cursor: "pointer" }}   >
           <option value="" hidden>Choose Category</option>
           <option value="Starters">Starters</option>
           <option value="Fast Food">Fast Food</option>

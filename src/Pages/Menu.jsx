@@ -8,14 +8,7 @@ import { toast } from "react-toastify";
 
 function Menu() {
   const [menuList, setMenuList] = useState([]);
-  const [categories, setCategories] = useState([
-    "All",
-    "Starters",
-    "Fast Food",
-    "Bread Items",
-    "Drinks",
-    "Desserts"
-  ]);
+  const [categories, setCategories] = useState(["All","Starters","Fast Food","Bread Items","Drinks","Desserts"  ]);
 
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,7 +60,7 @@ function Menu() {
           />
         </div>
 
-        {/* Category Buttons */}
+    
         <div className="container mb-4 d-flex justify-content-center flex-wrap gap-2">
           {categories.map((cat) => (
             <button
@@ -121,7 +114,7 @@ function Menu() {
                       {menu.category}
                     </div>
 
-                    {/* ADD TO PLATE BUTTON WITH ALERT */}
+                   
                     <button
                       onClick={() => {
                         dispatch(addToCart(menu));

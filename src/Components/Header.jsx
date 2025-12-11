@@ -1,6 +1,6 @@
-import React from 'react'
 import { Container, Dropdown, Nav, Navbar } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
+
 
 function Header() {
 
@@ -9,7 +9,7 @@ function Header() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token")
-    navigate("/")
+    navigate("/login")
   }
 
   return (
@@ -28,7 +28,7 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Link to="/" className='ms-3 text-decoration-none text-dark fw-bold'>Home</Link>
-            {/* Show Menu link only after login */}
+          
             {token && (
               <Link to="/menu" className='ms-3 text-decoration-none text-dark fw-bold'>Menu</Link>
             )}
@@ -39,9 +39,9 @@ function Header() {
           <Dropdown className="ms-4">
             <Dropdown.Toggle variant="none" className="border-0">
               {!token ? (
-                <i className="fa-solid fa-user fs-5"></i>   // BEFORE LOGIN
+                <i className="fa-solid fa-user fs-5"></i>   
               ) : (
-                <i className="fa-solid fa-circle-user fs-3 text-success"></i>  // AFTER LOGIN
+                <i className="fa-solid fa-circle-user fs-3 text-success"></i>
               )}
             </Dropdown.Toggle>
 

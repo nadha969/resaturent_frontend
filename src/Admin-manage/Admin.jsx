@@ -26,21 +26,13 @@ function Admin() {
 
   return (
     <div className="row d-flex">
-      {/* Sidebar */}
+    
       <div className="col-lg-3">
         <Sidebar />
       </div>
 
-      {/* Main Content */}
       <div className="col-lg-9">
-        <h3
-          style={{
-            fontFamily: 'Dancing Script',
-            color: 'green',
-            textAlign: 'center',
-            marginTop: '20px',
-          }}
-        >
+        <h3 style={{ fontFamily: 'Dancing Script', color: 'green', textAlign: 'center', marginTop: '20px',  }}>
           The Food Lounge Restaurant
         </h3>
 

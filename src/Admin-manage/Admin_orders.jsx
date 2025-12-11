@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../Components/Sidebar'
-import { getOrderAPI, updateOrderStatusAPI } from '../Services/allAPI'
+import { getOrderAPI } from '../Services/allAPI'
+import { Form } from 'react-bootstrap';
 
 function Admin_orders() {
 
   const [orders, setOrders] = useState([]);
 
+  // Load saved orders or fetch from backend
   useEffect(() => {
-    displayOrders();
+    const savedOrders = JSON.parse(localStorage.getItem("orders"));
+
+    if (savedOrders && savedOrders.length > 0) {
+      setOrders(savedOrders);        
+    } else {
+      displayOrders();               
+    }
   }, []);
 
   const displayOrders = async () => {
@@ -17,6 +25,7 @@ function Admin_orders() {
 
       if (result.status === 200) {
         setOrders(result.data);
+        localStorage.setItem("orders", JSON.stringify(result.data));
       }
     } catch (err) {
       console.log(err);
@@ -26,27 +35,10 @@ function Admin_orders() {
   // Format Date & Time
   const formatDateTime = (dateString) => {
     const d = new Date(dateString);
-    return (
-      d.toLocaleDateString("en-IN") + " " + d.toLocaleTimeString("en-IN")
-    );
+    return d.toLocaleDateString("en-IN") + " " + d.toLocaleTimeString("en-IN");
   };
 
-
-  // status
   
-const handleStatusChange = async (orderId, newStatus) => {
-  try {
-    const result = await updateOrderStatusAPI(orderId, newStatus);
-
-    if (result.status === 200) {
-      alert("Status updated!");
-      displayOrders(); // refresh list
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
-
   return (
     <div className="row d-flex">
       <div className="col-lg-3">
@@ -62,22 +54,21 @@ const handleStatusChange = async (orderId, newStatus) => {
         <div className="shadow p-4 rounded bg-white">
           <table className="table text-center align-middle">
             <thead>
-              <tr style={{ backgroundColor: "#f5f6fa" }}>
+              <tr style={{ backgroundColor: "#f5f6fa" }} className='mt-3'>
                 <th>#</th>
                 <th>Order ID</th>
                 <th>Customer</th>
                 <th>Items</th>
                 <th>Table No</th>
                 <th>Total</th>
-                <th>Date & Time</th>   {/* ✅ Added */}
-               
+                <th>Date & Time</th>
               </tr>
             </thead>
 
             <tbody>
               {orders.length > 0 ? (
                 orders.map((order, index) => (
-                  <tr key={order._id}>
+                  <tr key={order._id} className='mt-3'>
                     <td>{index + 1}</td>
                     <td>{order._id}</td>
                     <td>{order.name}</td>
@@ -91,24 +82,11 @@ const handleStatusChange = async (orderId, newStatus) => {
                     <td>{order.tableNumber}</td>
                     <td>₹{order.totalAmount}</td>
 
-                    {/* ✅ DATE & TIME */}
+                  
+
+                    {/* date time */}
                     <td>{formatDateTime(order.createdAt)}</td>
-                    {/* <td>
-  <select
-    className="form-select"
-    value={order.status}
-    onChange={(e) => handleStatusChange(order._id, e.target.value)}
-  >
-    <option value="Pending">Pending</option>
-    <option value="Preparing">Preparing</option>
-    <option value="Ready">Ready</option>
-    <option value="Completed">Completed</option>
-  </select>
-</td> */}
 
-
-                    {/* Status */}
-                   
                   </tr>
                 ))
               ) : (

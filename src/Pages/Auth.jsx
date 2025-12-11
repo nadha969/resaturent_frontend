@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../Components/Header'
 import { Link, useNavigate } from 'react-router-dom'
 import { loginAPI, registerAPI } from '../Services/allAPI'
 import { toast } from 'react-toastify'
 
+
 function Auth({insideRegister}) {
 
-  // spinner
+  
   const [userData,setUserData]=useState({name:"",email:"",password:""})
   console.log(userData);
   const navigate=useNavigate()
