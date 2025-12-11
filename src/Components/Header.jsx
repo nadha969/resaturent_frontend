@@ -9,7 +9,7 @@ function Header() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token")
-    navigate("/login")
+    navigate("/")
   }
 
   return (
